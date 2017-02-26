@@ -85,7 +85,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Introduction to Xen Networking]{Introduction to Xen Networking} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Introduction to Oracle VM (Xen) Networking]{Introduction to Oracle VM (Xen) Networking} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Dongli Zhang} % Your name
 \institute[Oracle] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
@@ -119,15 +119,118 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{What is virtualization}
+\section{paravirtual xen-netfront/xen-netback framework}
 \begin{frame}
-\frametitle{What is virtualization}
-\begin{itemize}
-\item QEMU
-\end{itemize}
+\frametitle{Paravirtual xen-netfront/xen-netback framework}
 \end{frame}
 
 %------------------------------------------------
+
+\section{pv xmit: front ---> backend}
+\begin{frame}
+\frametitle{pv xmit: front ---$>$ backend}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv xmit: backend ---> bridge}
+\begin{frame}
+\frametitle{pv xmit: backend ---$>$ bridge}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv xmit: bridge ---> bond}
+\begin{frame}
+\frametitle{pv xmit: bridge ---$>$ bond}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv xmit: bond ---> physical NIC}
+\begin{frame}
+\frametitle{pv xmit: bond ---$>$ physical NIC}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv recv: physical NIC ---> bond}
+\begin{frame}
+\frametitle{pv recv: physical NIC ---$>$ bond}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv recv: bond ---> bridge}
+\begin{frame}
+\frametitle{pv recv: bond ---$>$ bridge}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv recv: bridge ---> backend}
+\begin{frame}
+\frametitle{pv recv: bridge ---$>$ backend}
+\end{frame}
+
+%------------------------------------------------
+
+\section{pv recv: backend ---> frontend}
+\begin{frame}
+\frametitle{pv recv: backend ---$>$ frontend}
+\end{frame}
+
+%------------------------------------------------
+
+\section{xen-netfront init}
+\begin{frame}
+\frametitle{xen-netfront init}
+\end{frame}
+
+%------------------------------------------------
+
+\section{xen-netback init}
+\begin{frame}
+\frametitle{xen-netback init}
+\end{frame}
+
+%------------------------------------------------
+
+\section{features: multiqueue}
+\begin{frame}
+\frametitle{features: multiqueue}
+\end{frame}
+
+%------------------------------------------------
+
+\section{features: checksum and gso/tso offload}
+\begin{frame}
+\frametitle{features: checksum and gso/tso offload}
+\end{frame}
+
+%------------------------------------------------
+
+\section{features: multicast}
+\begin{frame}
+\frametitle{features: multicast}
+\end{frame}
+
+%------------------------------------------------
+
+\section{features: receive side scaling}
+\begin{frame}
+\frametitle{features: receive side scaling}
+\end{frame}
+
+%------------------------------------------------
+
+\section{performance tuning}
+\begin{frame}
+\frametitle{performance tuning}
+\end{frame}
+
+%------------------------------------------------
+
 
 \section{Take-Home Message}
 \begin{frame}
