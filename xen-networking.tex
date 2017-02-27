@@ -112,16 +112,81 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \frametitle{Plan}
 \begin{itemize}
 \setlength\itemsep{1em}
-\item {\large Paravirtual Networking}
+\item {\large Paravirtualized Networking}
+	\begin{itemize}
+		\item vif, bridge, bond
+	\end{itemize}
 \item {\large Emulated Networking}
+\item {\large Environment:}
+	\begin{itemize}
+		\item xen: Oracle VM server 3.3.3 with xen-4.3.0-55.el6.47.33.x86\_64
+		\item dom0: Unbreakable Enterprise Kernel v4.1.12-89
+		\item domU: Unbreakable Enterprise Kernel v4.1.12-89
+	\end{itemize}
+\item Prerequisite Knowledge: http://finallyjustice.github.io/xen-arch.pdf
+	\begin{itemize}
+		\item xen framework
+		\item PVM vs. HVM vs. PVHVM
+		\item event channel, grant table
+		\item xen admin hands-on experience (preferred)
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\section{paravirtual xen-netfront/xen-netback framework}
+\section{Paravirtualized xen-netfront/xen-netback framework}
 \begin{frame}
 \frametitle{Paravirtual xen-netfront/xen-netback framework}
+\begin{figure}
+\includegraphics[width=0.7\linewidth]{figures/xennet1.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\section{xen-netfront/xen-netback source code}
+\begin{frame}
+\frametitle{xen-netfront/xen-netback source code}
+\begin{block}{Unbreakable Enterprise Kernel v4.1.12-89}
+\begin{itemize}
+\item drivers/net/xen-netfront.c
+\item drivers/net/xen-netback/xenbus.c
+\item drivers/net/xen-netback/netback.c
+\item drivers/net/xen-netback/interface.c
+\end{itemize}
+\end{block}
+\frametitle{xen-netfront/xen-netback source code}
+\begin{block}{kernel upstream v4.9-rc8}
+\begin{itemize}
+\item drivers/net/xen-netfront.c
+\item drivers/net/xen-netback/xenbus.c
+\item drivers/net/xen-netback/netback.c
+\item drivers/net/xen-netback/interface.c
+\item drivers/net/xen-netback/rx.c
+\item drivers/net/xen-netback/hash.c
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\section{Paravirtualized networking scenario 1/2}
+\begin{frame}
+\frametitle{Paravirtual networking scenario 1/2}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/xennet2.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\section{Paravirtualized networking scenario 2/2}
+\begin{frame}
+\frametitle{Paravirtual networking scenario 2/2}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/xennet3.pdf}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -182,20 +247,6 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{xen-netfront init}
-\begin{frame}
-\frametitle{xen-netfront init}
-\end{frame}
-
-%------------------------------------------------
-
-\section{xen-netback init}
-\begin{frame}
-\frametitle{xen-netback init}
-\end{frame}
-
-%------------------------------------------------
-
 \section{features: multiqueue}
 \begin{frame}
 \frametitle{features: multiqueue}
@@ -221,6 +272,21 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \begin{frame}
 \frametitle{features: receive side scaling}
 \end{frame}
+
+%------------------------------------------------
+
+\section{xen-netfront init}
+\begin{frame}
+\frametitle{xen-netfront init}
+\end{frame}
+
+%------------------------------------------------
+
+\section{xen-netback init}
+\begin{frame}
+\frametitle{xen-netback init}
+\end{frame}
+
 
 %------------------------------------------------
 
