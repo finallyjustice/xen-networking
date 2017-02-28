@@ -205,7 +205,7 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \begin{frame}
 \frametitle{pv xmit: front ---$>$ backend 2/2}
 \begin{figure}
-\includegraphics[width=1.0\linewidth]{figures/eth_to_vif.pdf}
+\includegraphics[width=1.0\linewidth]{figures/xmit_skb.pdf}
 \end{figure}
 \end{frame}
 
@@ -214,34 +214,29 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \section{pv xmit: backend ---> bridge}
 \begin{frame}
 \frametitle{pv xmit: backend ---$>$ bridge}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/vif_to_bridge.pdf}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
 
-\section{pv xmit: bridge ---> bond}
+\section{pv xmit: bridge ---> bond ---> physical NIC}
 \begin{frame}
-\frametitle{pv xmit: bridge ---$>$ bond}
+\frametitle{pv xmit: bridge ---$>$ bond ---$>$ physical NIC}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/bridge_to_bond.pdf}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
 
-\section{pv xmit: bond ---> physical NIC}
+\section{pv recv: physical NIC ---> bond ---> bridge}
 \begin{frame}
-\frametitle{pv xmit: bond ---$>$ physical NIC}
-\end{frame}
-
-%------------------------------------------------
-
-\section{pv recv: physical NIC ---> bond}
-\begin{frame}
-\frametitle{pv recv: physical NIC ---$>$ bond}
-\end{frame}
-
-%------------------------------------------------
-
-\section{pv recv: bond ---> bridge}
-\begin{frame}
-\frametitle{pv recv: bond ---$>$ bridge}
+\frametitle{pv recv: physical NIC ---$>$ bond ---$>$ bridge}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/bond_to_bridge.pdf}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -249,6 +244,9 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \section{pv recv: bridge ---> backend}
 \begin{frame}
 \frametitle{pv recv: bridge ---$>$ backend}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/bridge_to_vif.pdf}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -256,6 +254,44 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \section{pv recv: backend ---> frontend}
 \begin{frame}
 \frametitle{pv recv: backend ---$>$ frontend}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/vif_to_eth.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\section{xen-netfront/xen-netback summary: req/rsp protocol}
+\begin{frame}
+\frametitle{xen-netfront/xen-netback summary: req/rsp protocol}
+\begin{columns}[c]
+\column{.5\textwidth}
+\begin{center} \textbf{netfront to netback (produce req)} \end{center}
+\begin{enumerate}
+\item 1st page of linear data (skb-$>$data)
+\item extra info (xen\_netif\_extra\_info)
+\item the rest of linear data (skb-$>$data)
+\item all skb fragments (skb\_shinfo(skb)-$>$frags)
+\end{enumerate}
+\column{.5\textwidth}
+\begin{center} \textbf{netback to netfront (produce rsq)} \end{center}
+\begin{enumerate}
+\item 1st page of linear data (skb-$>$data)
+\item extra info (xen\_netif\_extra\_info)
+\item the rest of linear data (skb-$>$data) 
+\item all skb fragments (skb\_shinfo(skb)-$>$frags)
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\section{xen-netfront/xen-netback summary: irq and napi}
+\begin{frame}
+\frametitle{xen-netfront/xen-netback summary: irq and napi}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/irq_napi.pdf}
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -306,6 +342,24 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \section{performance tuning}
 \begin{frame}
 \frametitle{performance tuning}
+\begin{columns}[c]
+\column{.7\textwidth}
+\begin{itemize}
+\item netfront/netback multiqueue
+\item Limit dom0 CPUs to first NUMA socket
+\item Interrupt affinity to reduce CPU 0 workload
+\item VCPU affinity to improve memory access performance
+\item Jumbo frame
+\item NIC offload
+\item TCP Parameter Settings
+\end{itemize}
+\column{.3\textwidth}
+\begin{center}
+\begin{figure}
+\includegraphics[width=.8\linewidth]{figures/performance.pdf}
+\end{figure}
+\end{center}
+\end{columns}
 \end{frame}
 
 %------------------------------------------------
