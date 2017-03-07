@@ -191,9 +191,9 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{pv xmit: front ---> backend 1/2}
+\section{pv xmit: front ---> backend 1/3}
 \begin{frame}
-\frametitle{pv xmit: front ---$>$ backend 1/2}
+\frametitle{pv xmit: front ---$>$ backend 1/3}
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figures/eth_to_vif.pdf}
 \end{figure}
@@ -201,15 +201,26 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{pv xmit: front ---> backend 2/2}
+\section{pv xmit: front ---> backend 2/3}
 \begin{frame}
-\frametitle{pv xmit: front ---$>$ backend 2/2}
+\frametitle{pv xmit: front ---$>$ backend 2/3}
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figures/xmit_skb.pdf}
 \end{figure}
 \end{frame}
 
 %------------------------------------------------
+
+\section{pv xmit: front ---> backend 3/3}
+\begin{frame}
+\frametitle{pv xmit: front ---$>$ backend 3/3}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/skb_destruct.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
 
 \section{pv xmit: backend ---> bridge}
 \begin{frame}
@@ -306,9 +317,32 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{features: checksum and gso/tso offload}
+\section{features: gso/tso offload and checksum offload}
 \begin{frame}
-\frametitle{features: checksum and gso/tso offload}
+\frametitle{features: gso/tso offload}
+\begin{itemize}
+\item {\large Segmentation Offload}
+	\begin{itemize}
+		\item GSO (Generic Segmentation Offload): software segmentation
+		\item TSO (TCP Segmentation Offload): hardware segmentation
+	\end{itemize} \pause
+\item {\large TSO would postpone segmentation to as late (low level) as possible} \pause
+\item {\large TSO info is shared via "struct xen\_netif\_extra\_info gso" in ring buffer}
+	\begin{itemize}
+		\item gso.gso-$>$u.gso.size = skb\_shinfo(skb)-$>$gso\_size;
+		\item gso-$>$u.gso.type = XEN\_NETIF\_GSO\_TYPE\_TCPV6;
+	\end{itemize} \pause
+\item {\large TSO and other offload features are stored in xenstore (e.g., feature-gso-tcpv4)}
+	\begin{itemize}
+		\item .ndo\_fix\_features = xennet\_fix\_features
+		\item .ndo\_set\_features = xennet\_set\_features
+	\end{itemize} \pause
+\item {\large checksum offload}
+	\begin{itemize}
+		\item XEN\_NETTXF\_csum\_blank: Protocol checksum field is blank in the packet (hardware offload)
+		\item XEN\_NETTXF\_data\_validated: Packet data has been validated against protocol checksum
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
 %------------------------------------------------
@@ -323,25 +357,13 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{features: receive side scaling}
+\section{xen-netfront/xen-netback init}
 \begin{frame}
-\frametitle{features: receive side scaling}
+\frametitle{xen-netfront/xen-netback init}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/init.pdf}
+\end{figure}
 \end{frame}
-
-%------------------------------------------------
-
-\section{xen-netfront init}
-\begin{frame}
-\frametitle{xen-netfront init}
-\end{frame}
-
-%------------------------------------------------
-
-\section{xen-netback init}
-\begin{frame}
-\frametitle{xen-netback init}
-\end{frame}
-
 
 %------------------------------------------------
 
@@ -370,6 +392,19 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
+\section{interesting works related to paravirtual I/O}
+\begin{frame}
+\frametitle{interesting works related to paravirtual I/O}
+\begin{itemize}
+\item Achieving 10 Gb/s Using Safe and Transparent Network Interface Virtualization. VEE 2009
+\item Efficient and Scalable Paravirtual I/O System. USENIX ATC 2013
+\item A Comprehensive Implementation and Evaluation of Direct Interrupt Delivery. VEE 2015
+\item vRIO: Paravirtual remote I/O.  ASPLOS 2016
+\item Hash, don't cache (the page table). SIGMETRICS 2016
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
 
 \section{Take-Home Message}
 \begin{frame}
@@ -377,7 +412,10 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \begin{columns}[c]
 \column{.7\textwidth}
 \begin{itemize}
-\visible<1->{\item Networking Virtualization}
+\visible<1->{\item Xen paravirtual networking workflow}
+\visible<2->{\item Xen paravirtual networking framework}
+\visible<3->{\item Xen paravirtual networking init, protocol, features}
+\visible<4->{\item Xen paravirtual networking performance}
 \end{itemize}
 \column{.3\textwidth}
 \begin{center}
