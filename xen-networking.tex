@@ -191,6 +191,30 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
+\section{PV driver vs. PCI driver}
+\begin{frame}
+\frametitle{PV driver vs. PCI driver}
+\begin{table}
+\begin{tabular}{l l l}
+\toprule
+& \textbf{PCI driver} & \textbf{PV driver}\\
+\midrule
+\textbf{device abstraction} & \textcolor{blue}{pci\_device, pci\_driver} & \visible<2->{\textcolor{red}{xenbus\_device, xenbus\_driver}} \\
+\textbf{device discovery} & \textcolor{blue}{PCI Tree} & \visible<3->{\textcolor{red}{Xenstore}} \\
+\textbf{device configuration} & \textcolor{blue}{PCI Config Space (IO/MMIO)} & \visible<4->{\textcolor{red}{Xenstore}} \\
+\textbf{data flow} & \textcolor{blue}{DMA Ring Buffer} & \visible<5->{\textcolor{red}{Memory Ring Buffer}} \\
+\textbf{shared memory} & \textcolor{blue}{N/A or IOMMU} & \visible<6->{\textcolor{red}{Grant Table}} \\
+\textbf{interrupt} & \textcolor{blue}{IOAPIC, MSI, MSI-X} & \visible<7->{\textcolor{red}{Event Channel}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}
+\includegraphics[width=.24\linewidth]{figures/fight.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
 \section{pv xmit: front ---> backend 1/3}
 \begin{frame}
 \frametitle{pv xmit: front ---$>$ backend 1/3}
