@@ -156,7 +156,6 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \item drivers/net/xen-netback/interface.c
 \end{itemize}
 \end{block}
-\frametitle{xen-netfront/xen-netback source code}
 \begin{block}{kernel upstream v4.9-rc8}
 \begin{itemize}
 \item drivers/net/xen-netfront.c
@@ -416,9 +415,9 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{interesting works related to paravirtual I/O}
+\section{Interesting works related to paravirtual I/O}
 \begin{frame}
-\frametitle{interesting works related to paravirtual I/O}
+\frametitle{Interesting works related to paravirtual I/O}
 \begin{itemize}
 \item Achieving 10 Gb/s Using Safe and Transparent Network Interface Virtualization. VEE 2009
 \item Efficient and Scalable Paravirtual I/O System. USENIX ATC 2013
@@ -430,16 +429,50 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
+\section{Networking Emulation with QEMU}
+\begin{frame}
+\frametitle{Networking Emulation with QEMU}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figures/qemu.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\section{qemu arguments}
+\begin{frame}
+\frametitle{qemu arguments}
+\begin{block}{pvm}
+/usr/lib/xen/bin/qemu-dm -d 4 -serial pty -domain-name testpv -videoram 4 -k en-us -vnc 0.0.0.0:0 -vncunused -M xenpv
+\end{block}
+\begin{block}{pvhvm}
+/usr/lib/xen/bin/qemu-dm -d 5 -domain-name oel65.xm -videoram 4 -k en-us -vnc 0.0.0.0:0 -vncunused -vcpus 2 -vcpu\_avail 0x3 -boot dc -serial pty -acpi \textcolor{red}{-net none} -M xenfv
+\end{block}
+\begin{block}{hvm}
+/usr/lib/xen/bin/qemu-dm -d 3 -domain-name oel65.xm -videoram 4 -k en-us -vnc 0.0.0.0:0 -vncunused -vcpus 2 -vcpu\_avail 0x3 -boot dc -serial pty -acpi
+
+\textcolor{red}{-net nic,vlan=1,macaddr=00:16:e3:cc:64:a9,model=e1000}
+
+\textcolor{red}{-net tap,vlan=1,ifname=vif3.0-emu,bridge=xenbr0,script=no,downscript=no}
+
+-M xenfv
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+
 \section{Take-Home Message}
 \begin{frame}
 \frametitle{Take-Home Message}
 \begin{columns}[c]
 \column{.7\textwidth}
 \begin{itemize}
-\visible<1->{\item Xen paravirtual networking workflow}
-\visible<2->{\item Xen paravirtual networking framework}
-\visible<3->{\item Xen paravirtual networking init, protocol, features}
-\visible<4->{\item Xen paravirtual networking performance}
+\visible<1->{\item xen paravirtual networking workflow}
+\visible<2->{\item xen paravirtual networking framework}
+\visible<3->{\item xen paravirtual networking init, protocol, features}
+\visible<4->{\item xen paravirtual networking performance}
+\visible<5->{\item xen emulated networking}
 \end{itemize}
 \column{.3\textwidth}
 \begin{center}
