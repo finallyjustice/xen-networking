@@ -245,9 +245,9 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 %------------------------------------------------
 
 
-\section{pv xmit: backend ---> bridge}
+\section{pv xmit: backend ---> bridge ---> bond}
 \begin{frame}
-\frametitle{pv xmit: backend ---$>$ bridge}
+\frametitle{pv xmit: backend ---$>$ bridge ---$>$ bond}
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figures/vif_to_bridge.pdf}
 \end{figure}
@@ -255,9 +255,9 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 
 %------------------------------------------------
 
-\section{pv xmit: bridge ---> bond ---> physical NIC}
+\section{pv xmit: bond ---> physical NIC}
 \begin{frame}
-\frametitle{pv xmit: bridge ---$>$ bond ---$>$ physical NIC}
+\frametitle{pv xmit: bond ---$>$ physical NIC}
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figures/bridge_to_bond.pdf}
 \end{figure}
@@ -353,7 +353,7 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \item {\large TSO info is shared via "struct xen\_netif\_extra\_info gso" in ring buffer}
 	\begin{itemize}
 		\item gso.gso-$>$u.gso.size = skb\_shinfo(skb)-$>$gso\_size;
-		\item gso-$>$u.gso.type = XEN\_NETIF\_GSO\_TYPE\_TCPV6;
+		\item gso-$>$u.gso.type = XEN\_NETIF\_GSO\_TYPE\_TCPV4;
 	\end{itemize} \pause
 \item {\large TSO and other offload features are stored in xenstore (e.g., feature-gso-tcpv4)}
 	\begin{itemize}
@@ -397,9 +397,9 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \column{.7\textwidth}
 \begin{itemize}
 \item netfront/netback multiqueue
-\item Limit dom0 CPUs to first NUMA socket
+\item Limit and ping dom0 CPUs to first NUMA socket
 \item Interrupt affinity to reduce CPU 0 workload
-\item VCPU affinity to improve memory access performance
+\item domU vcpu affinity to improve memory access performance
 \item Jumbo frame
 \item NIC offload
 \item TCP Parameter Settings
@@ -421,9 +421,8 @@ Oracle Asia Research and Development Centers (Beijing) \\ % Your institution for
 \begin{itemize}
 \item Achieving 10 Gb/s Using Safe and Transparent Network Interface Virtualization. VEE 2009
 \item Efficient and Scalable Paravirtual I/O System. USENIX ATC 2013
-\item A Comprehensive Implementation and Evaluation of Direct Interrupt Delivery. VEE 2015
+\item rIOMMU: Efficient IOMMU for I/O Devices that Employ Ring Buffers. ASPLOS 2015
 \item vRIO: Paravirtual remote I/O.  ASPLOS 2016
-\item Hash, don't cache (the page table). SIGMETRICS 2016
 \end{itemize}
 \end{frame}
 
